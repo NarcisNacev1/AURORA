@@ -2,7 +2,7 @@
 
 # Set the filename for the snapshot
 timestamp=$(date +"%Y%m%d%H%M%S")
-output_dir="../captures"
+output_dir="./logs/captures"  # Save directly in the logs/captures folder
 output_file="$output_dir/camera_snapshot_$timestamp.jpg"
 
 # Create the directory if it doesn't exist
