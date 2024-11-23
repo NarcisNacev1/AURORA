@@ -1,0 +1,54 @@
+# Ignore system-specific files
+.DS_Store
+Thumbs.db
+
+# Ignore IDE/editor-specific files
+.idea/
+.vscode/
+*.swp
+*.swo
+*.bak
+*.tmp
+
+# Ignore logs
+*.log
+
+# Ignore shell history
+*.history
+
+# Ignore compiled binaries (if any scripts compile something)
+*.o
+*.out
+*.bin
+
+# Ignore environment variable files (if storing sensitive data like credentials)
+.env
+.env.local
+
+# Ignore backup files
+*~
+*.bak
+
+# Ignore screenshots and captured images
+screenshots/
+camera_captures/
+
+# Ignore mail logs (if generated)
+mail_logs/
+
+# Ignore compressed archives
+*.tar
+*.tar.gz
+*.zip
+*.rar
+
+# Ignore test output (if applicable)
+test_output/
+
+# Ignore system cache
+.cache/
+*.pid
+
+# Ignore custom user folders
+personal_data/
+user_uploads/
