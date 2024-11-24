@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# Ensure the script is executable
+SCRIPT_PATH=$(realpath "$0")
+chmod +x "$SCRIPT_PATH"
+
 # Set the filename for the snapshot
 timestamp=$(date +"%Y%m%d%H%M%S")
 output_dir="./logs/captures"  # Save directly in the logs/captures folder

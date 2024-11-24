@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# Ensure the script is executable
+SCRIPT_PATH=$(realpath "$0")
+chmod +x "$SCRIPT_PATH"
+
 # Set the filename for the screenshot
 timestamp=$(date +"%Y%m%d%H%M%S")
 output_dir="./logs/captures"  # Save inside logs/captures folder
@@ -9,7 +13,7 @@ output_file="$output_dir/screenshot_$timestamp.png"
 mkdir -p "$output_dir"
 
 # Ensure proper DISPLAY environment and permissions
-export DISPLAY=:0  # Adjust this as necessary based on your display setup
+export DISPLAY=:1  # Adjust this as necessary based on your display setup
 xhost +SI:localuser:$(whoami)  # Allow access to the X session
 
 # Unset GTK_PATH to resolve Wayland/Xorg conflicts
