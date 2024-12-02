@@ -59,7 +59,19 @@ stop_logging() {
 # Run the decoder script
 run_decoder() {
     echo "Running decoder script to process the key logs..."
-    python3 diagnostics/decoder.py
+    # Dynamically determine the path to `decoder.py`
+    SCRIPT_DIR="$(dirname "$(realpath "$0")")"
+    DECODER_PATH="$SCRIPT_DIR/decoder.py"
+    if [ -f "$DECODER_PATH" ]; then
+        python3 "$DECODER_PATH" "$KEY_LOG_FILE"
+        if [ $? -ne 0 ]; then
+            echo "Error: Decoder script failed!"
+            exit 1
+        fi
+    else
+        echo "Error: Decoder script not found at $DECODER_PATH!"
+        exit 1
+    fi
 }
 
 # Begin logging
