@@ -9,9 +9,9 @@ Thumbs.db
 *.swo
 *.bak
 *.tmp
-
+.logs/captures/
 # Ignore logs
-*.log
+*.logs
 
 # Ignore shell history
 *.history
