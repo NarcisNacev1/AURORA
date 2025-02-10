@@ -1,4 +1,4 @@
-# PRISM – Personalized Real-time Information System Monitor
+# AURORA – Personalized Real-time Information System Monitor
 
 ## Overview
 
