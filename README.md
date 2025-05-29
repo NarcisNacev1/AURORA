@@ -2,7 +2,7 @@
 
 ## Overview
 
-AURORA is a Linux-based system monitoring tool designed for real-time diagnostics, activity tracking, and system snapshots. With its automated features, PRISM ensures critical system data is logged and monitored effectively. It provides alerts via email to keep users informed of system anomalies or updates.
+AURORA is a Linux-based system monitoring tool designed for real-time diagnostics, activity tracking, and system snapshots. With its automated features, AURORA ensures critical system data is logged and monitored effectively. It provides alerts via email to keep users informed of system anomalies or updates.
 
 ### Features
 - **System Diagnostics**: Real-time monitoring of CPU, memory, and disk usage.
